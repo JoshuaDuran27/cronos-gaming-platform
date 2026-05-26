@@ -11,10 +11,17 @@ def create_app():
     migrate.init_app(app, db)
     cors.init_app(app)
 
+    from app import models
+
     from app.routes.auth_routes import auth_bp
+    from app.routes.game_routes import game_bp
+    from app.routes.category_routes import category_bp
     from app.main import register_main_routes
 
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
+    app.register_blueprint(game_bp, url_prefix="/api/games")
+    app.register_blueprint(category_bp, url_prefix="/api/categories")
+
     register_main_routes(app)
 
     return app
