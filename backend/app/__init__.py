@@ -16,11 +16,13 @@ def create_app():
     from app.routes.auth_routes import auth_bp
     from app.routes.game_routes import game_bp
     from app.routes.category_routes import category_bp
+    from app.routes.cart_routes import cart_bp
     from app.main import register_main_routes
 
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
     app.register_blueprint(game_bp, url_prefix="/api/games")
     app.register_blueprint(category_bp, url_prefix="/api/categories")
+    app.register_blueprint(cart_bp, url_prefix="/api/cart")
 
     register_main_routes(app)
 
