@@ -16,3 +16,20 @@ export interface Game {
   category: Category;
   createdAt: string;
 }
+
+export interface CartItem {
+  id: number;
+  cartId: number;
+  game: Game;
+  createdAt: string;
+}
+
+export interface CartResponse {
+  cart: {
+    id: number;
+    userId: number;
+    items: CartItem[];
+    createdAt: string;
+  };
+  total: number;
+}

@@ -167,3 +167,138 @@ body {
   margin-top: 100px;
   color: #00ffcc;
 }
+.cart-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 180px 1fr auto auto;
+  gap: 20px;
+  align-items: center;
+  background: rgba(10, 10, 30, 0.9);
+  border: 1px solid rgba(0, 255, 204, 0.25);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 0 24px rgba(0, 255, 204, 0.1);
+}
+
+.cart-item img {
+  width: 180px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.cart-item-info span {
+  color: #00ffcc;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.cart-item-info h3 {
+  margin: 6px 0;
+}
+
+.cart-item-info p {
+  margin: 0;
+  color: #b0bec5;
+}
+
+.cart-summary {
+  background: rgba(10, 10, 30, 0.95);
+  border: 1px solid rgba(0, 255, 204, 0.35);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 0 28px rgba(0, 255, 204, 0.16);
+  position: sticky;
+  top: 96px;
+}
+
+.cart-summary h2 {
+  margin-top: 0;
+  color: #00ffcc;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.primary-button,
+.secondary-button,
+.danger-button {
+  border: none;
+  cursor: pointer;
+  font-weight: 800;
+  border-radius: 12px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.primary-button {
+  width: 100%;
+  margin-top: 22px;
+  padding: 14px;
+  background: #00ffcc;
+  color: #050510;
+}
+
+.secondary-button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px;
+  background: transparent;
+  color: #00ffcc;
+  border: 1px solid #00ffcc;
+}
+
+.danger-button {
+  padding: 10px 14px;
+  background: #ff3b5c;
+  color: white;
+}
+
+.primary-button:hover,
+.secondary-button:hover,
+.danger-button:hover {
+  transform: scale(1.04);
+}
+
+.empty-cart {
+  background: rgba(10, 10, 30, 0.9);
+  border: 1px solid rgba(0, 255, 204, 0.25);
+  border-radius: 18px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 0 24px rgba(0, 255, 204, 0.12);
+}
+
+.empty-cart h2 {
+  color: #00ffcc;
+}
+
+@media (max-width: 900px) {
+  .cart-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-item {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-item img {
+    width: 100%;
+    height: 160px;
+  }
+}
