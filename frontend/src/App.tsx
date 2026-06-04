@@ -5,6 +5,7 @@ import Catalog from "./pages/Catalog";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Cart from "./pages/Cart";
+import Library from "./pages/Library";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
+          <Route path="/library" element={<Library />} />
         <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>

@@ -11,8 +11,10 @@ function Navbar() {
         <Link to="/">Inicio</Link>
         <Link to="/catalog">Catálogo</Link>
         <Link to="/cart">Carrito</Link>
+          <Link to="/library">Biblioteca</Link>
         <Link to="/login">Login</Link>
         <Link to="/register">Registro</Link>
+
       </div>
     </nav>
   );

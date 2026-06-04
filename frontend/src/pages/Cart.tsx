@@ -37,6 +37,19 @@ function Cart() {
     }
   };
 
+  const checkout = async () => {
+  try {
+    await axiosClient.post(`/checkout/${userId}`);
+    alert("Compra realizada correctamente");
+    await fetchCart();
+  } catch (error: any) {
+    const message =
+      error.response?.data?.message || "Error al finalizar compra";
+
+    alert(message);
+  }
+};
+
   useEffect(() => {
     fetchCart();
   }, []);
@@ -95,8 +108,8 @@ function Cart() {
               <strong>${total} MXN</strong>
             </div>
 
-            <button className="primary-button">
-              Finalizar compra
+            <button className="primary-button" onClick={checkout}>
+            Finalizar compra
             </button>
 
             <button className="secondary-button" onClick={clearCart}>
