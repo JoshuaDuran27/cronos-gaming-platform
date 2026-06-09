@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
-import type {Game} from "../types/game";
+import type { Game } from "../types/game";
 
 interface GameCardProps {
   game: Game;
@@ -37,9 +38,15 @@ function GameCard({ game }: GameCardProps) {
         <div className="game-card-footer">
           <strong>${game.price} MXN</strong>
 
-          <button onClick={handleAddToCart}>
-            Agregar al carrito
-          </button>
+          <div className="game-card-actions">
+            <Link to={`/games/${game.id}`} className="details-button">
+              Ver más
+            </Link>
+
+            <button onClick={handleAddToCart}>
+              Agregar
+            </button>
+          </div>
         </div>
       </div>
     </div>
