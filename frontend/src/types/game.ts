@@ -33,3 +33,17 @@ export interface CartResponse {
   };
   total: number;
 }
+
+export interface Review {
+  id: number;
+  userId: number;
+  gameId: number;
+  rating: number;
+  comment: string;
+  createdAt: string;
+  user: {
+    id: number;
+    firstName: string;
+    lastName: string;
+  };
+}
