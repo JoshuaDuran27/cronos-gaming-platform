@@ -1,6 +1,6 @@
 from flask import Flask
 from app.config import Config
-from app.extensions import db, migrate, cors
+from app.extensions import db, migrate, cors, jwt
 
 
 def create_app():
@@ -10,6 +10,7 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     cors.init_app(app)
+    jwt.init_app(app)
 
     from app import models
 
@@ -19,8 +20,8 @@ def create_app():
     from app.routes.cart_routes import cart_bp
     from app.routes.checkout_routes import checkout_bp
     from app.routes.library_routes import library_bp
-    from app.main import register_main_routes
     from app.routes.review_routes import review_bp
+    from app.main import register_main_routes
 
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
     app.register_blueprint(game_bp, url_prefix="/api/games")

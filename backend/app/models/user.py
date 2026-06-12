@@ -1,4 +1,6 @@
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from app.extensions import db
 
 
@@ -11,7 +13,7 @@ class User(db.Model):
     last_name = db.Column(db.String(100), nullable=False)
 
     email = db.Column(db.String(150), unique=True, nullable=False)
-    password_hash = db.Column(db.String(255), nullable=True)
+    password_hash = db.Column(db.String(255), nullable=False)
 
     role = db.Column(db.String(50), nullable=False, default="USER")
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -20,6 +22,12 @@ class User(db.Model):
     purchases = db.relationship("Purchase", back_populates="user", cascade="all, delete-orphan")
     library_items = db.relationship("Library", back_populates="user", cascade="all, delete-orphan")
     reviews = db.relationship("Review", back_populates="user", cascade="all, delete-orphan")
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
     def to_dict(self):
         return {
