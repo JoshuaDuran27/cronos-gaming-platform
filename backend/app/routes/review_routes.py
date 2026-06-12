@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from app.extensions import db
 from app.models.game import Game
-from app.models.user import User
 from app.models.review import Review
 from app.models.library import Library
 
@@ -16,7 +16,9 @@ def get_game_reviews(game_id):
     if not game:
         return jsonify({"message": "Juego no encontrado"}), 404
 
-    reviews = Review.query.filter_by(game_id=game_id).order_by(Review.created_at.desc()).all()
+    reviews = Review.query.filter_by(game_id=game_id).order_by(
+        Review.created_at.desc()
+    ).all()
 
     return jsonify({
         "reviews": [review.to_dict() for review in reviews]
@@ -24,7 +26,10 @@ def get_game_reviews(game_id):
 
 
 @review_bp.route("/games/<int:game_id>/reviews", methods=["POST"])
+@jwt_required()
 def create_review(game_id):
+    user_id = int(get_jwt_identity())
+
     game = Game.query.get(game_id)
 
     if not game:
@@ -32,17 +37,11 @@ def create_review(game_id):
 
     data = request.get_json()
 
-    user_id = data.get("userId")
     rating = data.get("rating")
     comment = data.get("comment")
 
-    if not user_id or not rating or not comment:
-        return jsonify({"message": "userId, rating y comment son obligatorios"}), 400
-
-    user = User.query.get(user_id)
-
-    if not user:
-        return jsonify({"message": "Usuario no encontrado"}), 404
+    if not rating or not comment:
+        return jsonify({"message": "rating y comment son obligatorios"}), 400
 
     library_item = Library.query.filter_by(
         user_id=user_id,

@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from app.extensions import db
-from app.models.user import User
 from app.models.game import Game
 from app.models.cart import Cart, CartItem
 
@@ -19,12 +19,10 @@ def get_or_create_cart(user_id):
     return cart
 
 
-@cart_bp.route("/<int:user_id>", methods=["GET"])
-def get_cart(user_id):
-    user = User.query.get(user_id)
-
-    if not user:
-        return jsonify({"message": "Usuario no encontrado"}), 404
+@cart_bp.route("", methods=["GET"])
+@jwt_required()
+def get_cart():
+    user_id = int(get_jwt_identity())
 
     cart = get_or_create_cart(user_id)
 
@@ -36,12 +34,10 @@ def get_cart(user_id):
     }), 200
 
 
-@cart_bp.route("/<int:user_id>/items", methods=["POST"])
-def add_item_to_cart(user_id):
-    user = User.query.get(user_id)
-
-    if not user:
-        return jsonify({"message": "Usuario no encontrado"}), 404
+@cart_bp.route("/items", methods=["POST"])
+@jwt_required()
+def add_item_to_cart():
+    user_id = int(get_jwt_identity())
 
     data = request.get_json()
     game_id = data.get("gameId")
@@ -78,12 +74,10 @@ def add_item_to_cart(user_id):
     }), 201
 
 
-@cart_bp.route("/<int:user_id>/items/<int:game_id>", methods=["DELETE"])
-def remove_item_from_cart(user_id, game_id):
-    user = User.query.get(user_id)
-
-    if not user:
-        return jsonify({"message": "Usuario no encontrado"}), 404
+@cart_bp.route("/items/<int:game_id>", methods=["DELETE"])
+@jwt_required()
+def remove_item_from_cart(game_id):
+    user_id = int(get_jwt_identity())
 
     cart = Cart.query.filter_by(user_id=user_id).first()
 
@@ -106,12 +100,10 @@ def remove_item_from_cart(user_id, game_id):
     }), 200
 
 
-@cart_bp.route("/<int:user_id>/clear", methods=["DELETE"])
-def clear_cart(user_id):
-    user = User.query.get(user_id)
-
-    if not user:
-        return jsonify({"message": "Usuario no encontrado"}), 404
+@cart_bp.route("/clear", methods=["DELETE"])
+@jwt_required()
+def clear_cart():
+    user_id = int(get_jwt_identity())
 
     cart = Cart.query.filter_by(user_id=user_id).first()
 

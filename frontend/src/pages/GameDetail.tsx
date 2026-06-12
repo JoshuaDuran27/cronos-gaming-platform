@@ -7,8 +7,6 @@ function GameDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const userId = 1;
-
   const [game, setGame] = useState<Game | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
@@ -20,7 +18,7 @@ function GameDetail() {
     if (!id) return;
 
     try {
-      const response = await axiosClient.get(`/games/${id}/reviews`);
+      const response = await axiosClient.get(`/games/reviews`);
       setReviews(response.data.reviews);
     } catch (error) {
       console.error("Error al cargar reseñas:", error);
@@ -49,7 +47,7 @@ function GameDetail() {
     if (!game) return;
 
     try {
-      await axiosClient.post(`/cart/${userId}/items`, {
+      await axiosClient.post(`/cart/items`, {
         gameId: game.id,
       });
 
@@ -69,7 +67,6 @@ function GameDetail() {
 
     try {
       await axiosClient.post(`/games/${game.id}/reviews`, {
-        userId,
         rating,
         comment,
       });

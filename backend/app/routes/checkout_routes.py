@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy.exc import IntegrityError
 
 from app.extensions import db
-from app.models.user import User
 from app.models.cart import Cart, CartItem
 from app.models.purchase import Purchase, PurchaseItem
 from app.models.library import Library
@@ -10,12 +10,10 @@ from app.models.library import Library
 checkout_bp = Blueprint("checkout", __name__)
 
 
-@checkout_bp.route("/<int:user_id>", methods=["POST"])
-def checkout(user_id):
-    user = User.query.get(user_id)
-
-    if not user:
-        return jsonify({"message": "Usuario no encontrado"}), 404
+@checkout_bp.route("", methods=["POST"])
+@jwt_required()
+def checkout():
+    user_id = int(get_jwt_identity())
 
     cart = Cart.query.filter_by(user_id=user_id).first()
 

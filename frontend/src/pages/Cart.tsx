@@ -3,14 +3,13 @@ import axiosClient from "../api/axiosClient";
 import type { CartResponse } from "../types/game";
 
 function Cart() {
-  const userId = 1;
 
   const [cartData, setCartData] = useState<CartResponse | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchCart = async () => {
     try {
-      const response = await axiosClient.get(`/cart/${userId}`);
+      const response = await axiosClient.get(`/cart`);
       setCartData(response.data);
     } catch (error) {
       console.error("Error al cargar carrito:", error);
@@ -21,7 +20,7 @@ function Cart() {
 
   const removeFromCart = async (gameId: number) => {
     try {
-      await axiosClient.delete(`/cart/${userId}/items/${gameId}`);
+      await axiosClient.delete(`/cart/items/${gameId}`);
       await fetchCart();
     } catch (error) {
       console.error("Error al eliminar juego:", error);
@@ -30,7 +29,7 @@ function Cart() {
 
   const clearCart = async () => {
     try {
-      await axiosClient.delete(`/cart/${userId}/clear`);
+      await axiosClient.delete(`/cart/clear`);
       await fetchCart();
     } catch (error) {
       console.error("Error al vaciar carrito:", error);
@@ -39,7 +38,7 @@ function Cart() {
 
   const checkout = async () => {
   try {
-    await axiosClient.post(`/checkout/${userId}`);
+    await axiosClient.post(`/checkout`);
     alert("Compra realizada correctamente");
     await fetchCart();
   } catch (error: any) {

@@ -10,7 +10,6 @@ interface LibraryItem {
 }
 
 function Library() {
-  const userId = 1;
 
   const [library, setLibrary] = useState<LibraryItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +17,7 @@ function Library() {
   useEffect(() => {
     const fetchLibrary = async () => {
       try {
-        const response = await axiosClient.get(`/library/${userId}`);
+        const response = await axiosClient.get(`/library`);
         setLibrary(response.data.library);
       } catch (error) {
         console.error("Error al cargar biblioteca:", error);

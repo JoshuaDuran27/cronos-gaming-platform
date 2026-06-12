@@ -9,11 +9,10 @@ interface GameCardProps {
 function GameCard({ game }: GameCardProps) {
   const handleAddToCart = async () => {
     try {
-      const userId = 1;
 
-      await axiosClient.post(`/cart/${userId}/items`, {
-        gameId: game.id,
-      });
+     await axiosClient.post("/cart/items", {
+    gameId: game.id,
+});
 
       alert(`${game.title} agregado al carrito`);
     } catch (error: any) {
