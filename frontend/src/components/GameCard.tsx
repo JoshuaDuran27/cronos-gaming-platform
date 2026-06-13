@@ -22,7 +22,20 @@ function GameCard({ game }: GameCardProps) {
       alert(message);
     }
   };
+const handleAddToWishlist = async () => {
+  try {
+    await axiosClient.post("/wishlist/items", {
+      gameId: game.id,
+    });
 
+    alert(`${game.title} agregado a wishlist`);
+  } catch (error: any) {
+    const message =
+      error.response?.data?.message || "Error al agregar a wishlist";
+
+    alert(message);
+  }
+};
   return (
     <div className="game-card">
       <img src={game.imageUrl} alt={game.title} />
@@ -36,16 +49,17 @@ function GameCard({ game }: GameCardProps) {
 
         <div className="game-card-footer">
           <strong>${game.price} MXN</strong>
-
-          <div className="game-card-actions">
+        <div className="game-card-actions">
             <Link to={`/games/${game.id}`} className="details-button">
-              Ver más
+                Ver más
             </Link>
-
             <button onClick={handleAddToCart}>
-              Agregar
+                Agregar
             </button>
-          </div>
+            <button className="wishlist-button" onClick={handleAddToWishlist}>
+                ❤️
+            </button>
+        </div>
         </div>
       </div>
     </div>

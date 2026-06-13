@@ -24,6 +24,7 @@ function Navbar() {
           <>
             <Link to="/cart">Carrito</Link>
             <Link to="/library">Biblioteca</Link>
+              <Link to="/wishlist">Wishlist</Link>
           </>
         )}
 

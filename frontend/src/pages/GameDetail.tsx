@@ -25,6 +25,23 @@ function GameDetail() {
     }
   };
 
+  const addToWishlist = async () => {
+  if (!game) return;
+
+  try {
+    await axiosClient.post("/wishlist/items", {
+      gameId: game.id,
+    });
+
+    alert(`${game.title} agregado a wishlist`);
+  } catch (error: any) {
+    const message =
+      error.response?.data?.message || "Error al agregar a wishlist";
+
+    alert(message);
+  }
+};
+
   useEffect(() => {
     const fetchGame = async () => {
       if (!id) return;
@@ -147,6 +164,12 @@ function GameDetail() {
             onClick={addToCart}
           >
             Agregar al carrito
+          </button>
+          <button
+            className="secondary-button detail-button"
+            onClick={addToWishlist}
+          >
+            Agregar a Wishlist
           </button>
         </div>
       </section>

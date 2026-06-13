@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import Library from "./pages/Library";
 import GameDetail from "./pages/GameDetail";
+import Wishlist from "./pages/Wishlist";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
           <Route path="/games/:id" element={<GameDetail />} />
         <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/login" element={<Login />} />
           <Route path="/library" element={<Library />} />
         <Route path="/register" element={<Register />} />

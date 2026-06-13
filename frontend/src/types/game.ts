@@ -47,3 +47,14 @@ export interface Review {
     lastName: string;
   };
 }
+
+export interface WishlistItem {
+  id: number;
+  userId: number;
+  game: Game;
+  createdAt: string;
+}
+
+export interface WishlistResponse {
+  wishlist: WishlistItem[];
+}

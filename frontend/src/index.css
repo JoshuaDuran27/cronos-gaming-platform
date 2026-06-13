@@ -557,3 +557,28 @@ body {
   background: #ff6b81;
   color: white;
 }
+
+.wishlist-button {
+  background: transparent;
+  color: #ff4f8b;
+  border: 1px solid #ff4f8b;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.wishlist-button:hover {
+  background: #ff4f8b;
+  color: white;
+}
+
+.wishlist-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.wishlist-actions button {
+  flex: 1;
+}
