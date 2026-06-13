@@ -23,6 +23,11 @@ class User(db.Model):
     library_items = db.relationship("Library", back_populates="user", cascade="all, delete-orphan")
     reviews = db.relationship("Review", back_populates="user", cascade="all, delete-orphan")
 
+    wishlist_items = db.relationship(
+        "Wishlist",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 

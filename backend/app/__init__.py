@@ -22,6 +22,8 @@ def create_app():
     from app.routes.library_routes import library_bp
     from app.routes.review_routes import review_bp
     from app.main import register_main_routes
+    from app.models.wishlist import Wishlist
+    from app.routes.wishlist_routes import wishlist_bp
 
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
     app.register_blueprint(game_bp, url_prefix="/api/games")
@@ -30,7 +32,8 @@ def create_app():
     app.register_blueprint(checkout_bp, url_prefix="/api/checkout")
     app.register_blueprint(library_bp, url_prefix="/api/library")
     app.register_blueprint(review_bp, url_prefix="/api")
-
+    app.register_blueprint(wishlist_bp, url_prefix="/api/wishlist")
+    
     register_main_routes(app)
 
     return app
