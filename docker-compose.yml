@@ -12,5 +12,32 @@ services:
     volumes:
       - cronos_postgres_data:/var/lib/postgresql/data
 
+  backend:
+    build:
+      context: ./backend
+    container_name: cronos_backend
+    restart: always
+    env_file:
+      - ./backend/.env
+    ports:
+      - "5001:5000"
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: cronos_frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
 volumes:
   cronos_postgres_data:
