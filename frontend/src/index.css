@@ -822,3 +822,41 @@ body {
     height: 170px;
   }
 }
+
+.editing-indicator {
+  background: rgba(92, 141, 255, 0.14);
+  border: 1px solid rgba(92, 141, 255, 0.3);
+  color: var(--text-secondary);
+  border-radius: 12px;
+  padding: 12px;
+  margin: 0;
+}
+
+.editing-indicator strong {
+  color: var(--accent-hover);
+}
+
+.admin-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.admin-actions .secondary-button,
+.admin-actions .danger-button {
+  width: auto;
+  margin-top: 0;
+  padding: 10px 14px;
+}
+
+@media (max-width: 1000px) {
+  .admin-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-actions .secondary-button,
+  .admin-actions .danger-button {
+    width: 100%;
+  }
+}

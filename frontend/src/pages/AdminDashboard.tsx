@@ -5,6 +5,7 @@ import type { Category, Game } from "../types/game";
 function AdminDashboard() {
   const [games, setGames] = useState<Game[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [editingGame, setEditingGame] = useState<Game | null>(null);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -39,6 +40,7 @@ function AdminDashboard() {
   }, []);
 
   const resetForm = () => {
+    setEditingGame(null);
     setTitle("");
     setDescription("");
     setPrice("");
@@ -49,27 +51,48 @@ function AdminDashboard() {
     setCategoryId("");
   };
 
+  const loadGameToEdit = (game: Game) => {
+    setEditingGame(game);
+    setTitle(game.title);
+    setDescription(game.description);
+    setPrice(String(game.price));
+    setImageUrl(game.imageUrl || "");
+    setDeveloper(game.developer || "");
+    setPublisher(game.publisher || "");
+    setReleaseDate(game.releaseDate || "");
+    setCategoryId(String(game.category?.id || ""));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    try {
-      await axiosClient.post("/games", {
-        title,
-        description,
-        price: Number(price),
-        imageUrl,
-        developer,
-        publisher,
-        releaseDate,
-        categoryId: Number(categoryId),
-      });
+    const payload = {
+      title,
+      description,
+      price: Number(price),
+      imageUrl,
+      developer,
+      publisher,
+      releaseDate,
+      categoryId: Number(categoryId),
+    };
 
-      alert("Juego creado correctamente");
+    try {
+      if (editingGame) {
+        await axiosClient.put(`/games/${editingGame.id}`, payload);
+        alert("Juego actualizado correctamente");
+      } else {
+        await axiosClient.post("/games", payload);
+        alert("Juego creado correctamente");
+      }
+
       resetForm();
       await fetchGames();
     } catch (error: any) {
       const message =
-        error.response?.data?.message || "Error al crear juego";
+        error.response?.data?.message ||
+        (editingGame ? "Error al actualizar juego" : "Error al crear juego");
 
       alert(message);
     }
@@ -83,6 +106,10 @@ function AdminDashboard() {
     try {
       await axiosClient.delete(`/games/${gameId}`);
       await fetchGames();
+
+      if (editingGame?.id === gameId) {
+        resetForm();
+      }
     } catch (error: any) {
       const message =
         error.response?.data?.message || "Error al eliminar juego";
@@ -97,7 +124,13 @@ function AdminDashboard() {
 
       <section className="admin-layout">
         <form className="admin-form" onSubmit={handleSubmit}>
-          <h2>Crear nuevo juego</h2>
+          <h2>{editingGame ? "Editar juego" : "Crear nuevo juego"}</h2>
+
+          {editingGame && (
+            <p className="editing-indicator">
+              Editando: <strong>{editingGame.title}</strong>
+            </p>
+          )}
 
           <label>Título</label>
           <input
@@ -166,8 +199,18 @@ function AdminDashboard() {
           </select>
 
           <button className="primary-button" type="submit">
-            Crear juego
+            {editingGame ? "Guardar cambios" : "Crear juego"}
           </button>
+
+          {editingGame && (
+            <button
+              className="secondary-button"
+              type="button"
+              onClick={resetForm}
+            >
+              Cancelar edición
+            </button>
+          )}
         </form>
 
         <section className="admin-list">
@@ -183,12 +226,21 @@ function AdminDashboard() {
                 <strong>${game.price} MXN</strong>
               </div>
 
-              <button
-                className="danger-button"
-                onClick={() => deleteGame(game.id)}
-              >
-                Eliminar
-              </button>
+              <div className="admin-actions">
+                <button
+                  className="secondary-button"
+                  onClick={() => loadGameToEdit(game)}
+                >
+                  Editar
+                </button>
+
+                <button
+                  className="danger-button"
+                  onClick={() => deleteGame(game.id)}
+                >
+                  Eliminar
+                </button>
+              </div>
             </article>
           ))}
         </section>
