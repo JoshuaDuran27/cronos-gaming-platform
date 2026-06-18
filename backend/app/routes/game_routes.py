@@ -3,6 +3,7 @@ from flask import Blueprint, jsonify, request
 from app.extensions import db
 from app.models.game import Game
 from app.models.category import Category
+from app.utils.admin_required import admin_required
 
 game_bp = Blueprint("games", __name__)
 
@@ -40,6 +41,7 @@ def get_game_by_id(game_id):
 
 
 @game_bp.route("", methods=["POST"])
+@admin_required
 def create_game():
     data = request.get_json()
 
@@ -75,6 +77,7 @@ def create_game():
 
 
 @game_bp.route("/<int:game_id>", methods=["PUT"])
+@admin_required
 def update_game(game_id):
     game = Game.query.get(game_id)
 
@@ -107,6 +110,7 @@ def update_game(game_id):
 
 
 @game_bp.route("/<int:game_id>", methods=["DELETE"])
+@admin_required
 def delete_game(game_id):
     game = Game.query.get(game_id)
 
