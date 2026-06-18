@@ -33,7 +33,7 @@ def create_app():
     app.register_blueprint(library_bp, url_prefix="/api/library")
     app.register_blueprint(review_bp, url_prefix="/api")
     app.register_blueprint(wishlist_bp, url_prefix="/api/wishlist")
-    
+
     register_main_routes(app)
 
     return app
