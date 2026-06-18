@@ -860,3 +860,26 @@ body {
     width: 100%;
   }
 }
+
+.admin-category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px;
+
+  border-radius: 16px;
+
+  background: rgba(255,255,255,.04);
+
+  border: 1px solid var(--border-soft);
+}
+
+.admin-category-item h3 {
+  margin: 0;
+}
+
+.admin-category-item p {
+  margin-top: 6px;
+  color: var(--text-secondary);
+}

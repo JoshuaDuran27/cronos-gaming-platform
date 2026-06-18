@@ -9,7 +9,7 @@ import Library from "./pages/Library";
 import GameDetail from "./pages/GameDetail";
 import Wishlist from "./pages/Wishlist";
 import AdminDashboard from "./pages/AdminDashboard";
-
+import AdminCategories from "./pages/AdminCategories";
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +25,10 @@ function App() {
           <Route path="/library" element={<Library />} />
         <Route path="/register" element={<Register />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route
+  path="/admin/categories"
+  element={<AdminCategories />}
+/>
       </Routes>
     </BrowserRouter>
   );
