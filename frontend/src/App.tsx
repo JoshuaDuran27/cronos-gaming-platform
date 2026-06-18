@@ -8,6 +8,7 @@ import Cart from "./pages/Cart";
 import Library from "./pages/Library";
 import GameDetail from "./pages/GameDetail";
 import Wishlist from "./pages/Wishlist";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
           <Route path="/library" element={<Library />} />
         <Route path="/register" element={<Register />} />
+          <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </BrowserRouter>
   );

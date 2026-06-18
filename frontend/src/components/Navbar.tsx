@@ -28,6 +28,8 @@ function Navbar() {
           </>
         )}
 
+
+
         {!isAuthenticated ? (
           <>
             <Link to="/login">Login</Link>
@@ -41,6 +43,9 @@ function Navbar() {
             </button>
           </>
         )}
+          {user?.role === "ADMIN" && (
+              <Link to="/admin">Admin</Link>
+          )}
       </div>
     </nav>
   );
