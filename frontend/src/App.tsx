@@ -10,6 +10,7 @@ import GameDetail from "./pages/GameDetail";
 import Wishlist from "./pages/Wishlist";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminCategories from "./pages/AdminCategories";
+import AdminStats from "./pages/AdminStats";
 function App() {
   return (
     <BrowserRouter>
@@ -17,14 +18,15 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/catalog" element={<Catalog />} />
+          <Route path="/catalog" element={<Catalog />} />
           <Route path="/games/:id" element={<GameDetail />} />
-        <Route path="/cart" element={<Cart />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/library" element={<Library />} />
-        <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/stats" element={<AdminStats />} />
           <Route
   path="/admin/categories"
   element={<AdminCategories />}

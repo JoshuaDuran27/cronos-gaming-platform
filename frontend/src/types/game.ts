@@ -58,3 +58,18 @@ export interface WishlistItem {
 export interface WishlistResponse {
   wishlist: WishlistItem[];
 }
+
+export interface TopGame {
+  id: number;
+  title: string;
+  imageUrl: string;
+  sales: number;
+}
+
+export interface AdminStatsResponse {
+  totalUsers: number;
+  totalGames: number;
+  totalPurchases: number;
+  totalRevenue: number;
+  topGames: TopGame[];
+}

@@ -44,18 +44,12 @@ function Navbar() {
           </>
         )}
           {user?.role === "ADMIN" && (
-              <Link to="/admin">Admin</Link>
-          )}
-          {user?.role === "ADMIN" && (
-            <>
-                <Link to="/admin">
-                    Juegos
-                </Link>
-                <Link to="/admin/categories">
-                    Categorías
-                </Link>
-            </>
-          )}
+  <>
+    <Link to="/admin">Juegos</Link>
+    <Link to="/admin/categories">Categorías</Link>
+    <Link to="/admin/stats">Estadísticas</Link>
+  </>
+)}
       </div>
     </nav>
   );
