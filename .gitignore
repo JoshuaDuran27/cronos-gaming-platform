@@ -5,12 +5,13 @@ __pycache__/
 .env
 .mypy_cache/
 .pytest_cache/
+backend/.env
 
 # Node
 node_modules/
 dist/
 .env.local
-
+frontend/.env
 # IDE
 .idea/
 .vscode/
